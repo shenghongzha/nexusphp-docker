@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pt-php
+    volumes:
+      - ./NexusPHP:/var/www/NexusPHP
+      - ./log/php:/tmp
+    command: /bin/sh -c "composer install && php-fpm -F"
+    networks:
+      - nexusphp-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: pt-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./NexusPHP:/var/www/NexusPHP
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./log/nginx:/var/log/nginx
+    command: /bin/sh -c "nginx -g 'daemon off;'"
+    depends_on:
+      - php
+    networks:
+      - nexusphp-network
+
+networks:
+  nexusphp-network:
+    driver: bridge

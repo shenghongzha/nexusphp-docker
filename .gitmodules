@@ -1,0 +1,3 @@
+[submodule "NexusPHP"]
+	path = NexusPHP
+	url = git@github.com:xiaomlove/nexusphp.git
