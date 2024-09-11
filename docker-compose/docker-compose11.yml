@@ -35,6 +35,7 @@ services:
     container_name: pt-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: nexusphp
     ports:
       - "3306:3306"
     volumes:

@@ -62,23 +62,23 @@ for /L %%i in (1,1,%password_length%) do (
 call ./start.bat
 
 :: Set the sql script path
-set CONTAINER_NAME=pt-mysql
-set SQL_SCRIPT_PATH=./docker-compose/sql/install.sql
-set CONTAINER_SQL_SCRIPT_PATH=/opt/install.sql
+@REM set CONTAINER_NAME=pt-mysql
+@REM set SQL_SCRIPT_PATH=./docker-compose/sql/install.sql
+@REM set CONTAINER_SQL_SCRIPT_PATH=/opt/install.sql
 
 :: Copy the SQL script to the container
-docker cp %SQL_SCRIPT_PATH% %CONTAINER_NAME%:%CONTAINER_SQL_SCRIPT_PATH%
+@REM docker cp %SQL_SCRIPT_PATH% %CONTAINER_NAME%:%CONTAINER_SQL_SCRIPT_PATH%
 
 :: Execute the SQL script
-docker exec -i %CONTAINER_NAME% mysql -u root -p!MYSQL_ROOT_PASSWORD! < %CONTAINER_SQL_SCRIPT_PATH%
+@REM docker exec -i %CONTAINER_NAME% mysql -u root -p!MYSQL_ROOT_PASSWORD! < %CONTAINER_SQL_SCRIPT_PATH%
 
 :: Check the result of the SQL script execution
-if %errorlevel% neq 0 (
-    echo SQL script execution failed!
-    echo Please create the database "nexusphp" by use the following command:
-    echo create database `nexusphp` default charset=utf8mb4 collate utf8mb4_general_ci;
-) else (
-    echo SQL script executed successfully!
-)
+@REM if %errorlevel% neq 0 (
+@REM     echo SQL script execution failed!
+@REM     echo Please create the database "nexusphp" by use the following command:
+@REM     echo create database `nexusphp` default charset=utf8mb4 collate utf8mb4_general_ci;
+@REM ) else (
+@REM     echo SQL script executed successfully!
+@REM )
 
 echo installation completed
